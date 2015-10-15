@@ -1,0 +1,115 @@
+<dn-display-mode ng-model="displayMode"></dn-display-mode>
+
+<div class="container po-detail-container">
+    <div class="row po-header" ng-class="{'mobile':displayMode==='xs'}">
+        <div class="col-xs-8 col-sm-3 po-id" ng-class="displayMode">Purchase Order: {{getInfo.poNumber}}</div>
+        <div ng-hide="displayMode==='xs'" class="col-sm-5 ">
+            <a type="button" class="btn btn-default btn-sm pull-right" ng-class="displayMode" href="javascript:window.print()">Print</a>
+        </div>
+    </div>
+    <div class="row po-body">
+        <div class="po-print-header">
+            <div class="col-xs-3 col-sm-2 status">
+                <img style="width:100%;" ng-src="statusImage()"/></div>
+            <h1 class="title hidden-xs col-sm-5"><strong>Purchase Order</strong></h1>
+
+            <div class="address-block col-xs-8 col-sm-4">
+                <address class="pull-right">
+                    <strong>{{poCompany.name}}</strong><br/>
+                    {{poCompany.address1}}<br/>
+                    {{poCompany.city}}, {{poCompany.state}} {{poCompany.zip}}<br/>
+                </address>
+            </div>
+        </div>
+        <hr/>
+        <div class="row po-info-block">
+            <div class="col-xs-6">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-xs-5 col-sm-1 ">
+                        <h4 class="to-label">TO:</h4>
+                    </div>
+                    <div class="col-xs-8">
+                        <address>
+		                    <strong>{{poSupplier.name}}</strong><br/>
+		                    {{poSupplier.address1}}<br/>
+		                    {{poSupplier.city}}, {{poSupplier.state}} {{poSupplier.zip}}<br/>
+                        </address>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-5">
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 ">
+                        <h4>PO Number:</h4>
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-5 col-sm-8">
+                        {{getInfo.poNumber}}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 ">
+                        <h4>PO Date:</h4>
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-5 col-sm-8">
+                        {{aPo.dateCreated}}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-5 col-sm-3 ">
+                        <h4>Estimated Ship Date:</h4>
+                    </div>
+                    <div class="col-xs-offset-1 col-xs-5 col-sm-8">
+                        {{aPo.expectedDeliveryDate}}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-offset-1 col-sm-10">
+            <table class="table">
+                <thead style="background-color:#ddd;">
+                <td>Product</td>
+
+                <td>Description</td>
+
+                <td>Unit Cost</td>
+
+                <td>Quantity</td>
+
+                <td>Line Total</td>
+
+                </thead>
+                <tbody>
+                <tr ng-repeat="product in aPo.details">
+                    <td>{{product.product.code}}</td>
+
+                    <td>{{product.overrideDescription}}</td>
+
+                    <td>{{product.price | currency}}</td>
+
+                    <td>{{product.quantity}}</td>
+                    <td>{{product.price * product.quantity | currency}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-offset-7 col-sm-4" style="background-color:#ddd;padding: 8px;margin-bottom: 20px">
+        	Purchase Order Total: {{aPo.poTotal | currency}}
+        </div>
+    </div>
+
+
+</div>
+
+<div class="total-block"></div>
+</div>
+<div class="po-history "></div>
+
+</div>
