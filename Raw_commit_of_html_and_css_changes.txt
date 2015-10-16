@@ -1,0 +1,155 @@
+From 8cb5e10d365f3fc1f9b2076bb21cd5a0612d1b0c Mon Sep 17 00:00:00 2001
+From: Austin Myers <austin@rinsoft.com>
+Date: Tue, 10 Jun 2014 16:41:59 -0700
+Subject: [PATCH] updates styles for send modal
+
+---
+ app/css/agk.css               | 13 +++++++++++++
+ app/css/agkpo.css             | 12 ++++++++++++
+ app/partials/list_all_po.html | 37 +++++++++++++++++++++++--------------
+ app/partials/po_detail.html   | 32 +++++++++++++++++++++-----------
+ 4 files changed, 69 insertions(+), 25 deletions(-)
+
+diff --git a/app/css/agk.css b/app/css/agk.css
+index ec11549..2bb4c3f 100644
+--- a/app/css/agk.css
++++ b/app/css/agk.css
+@@ -204,3 +204,16 @@ li {
+     margin-right: 8px;
+   }
+ }
++
++.pad-list-title {
++	padding-bottom: 8px;
++}
++
++.pad-inputs input{
++	margin: -2px 0 0 0;
++}
++
++.pad-inputs {
++	padding-bottom: 12px;
++}
++
+diff --git a/app/css/agkpo.css b/app/css/agkpo.css
+index e51e4a2..e806568 100644
+--- a/app/css/agkpo.css
++++ b/app/css/agkpo.css
+@@ -6265,3 +6265,15 @@ fieldset[disabled] .btn-primary.active {
+ .thin div.col-sm-8 {
+ 	text-align: right;
+ }
++
++.pad-list-title {
++	padding-bottom: 8px;
++}
++
++.pad-inputs input{
++	margin: -2px 0 0 0;
++}
++
++.pad-inputs {
++	padding-bottom: 12px;
++}
+diff --git a/app/partials/list_all_po.html b/app/partials/list_all_po.html
+index a082c39..ebd6431 100644
+--- a/app/partials/list_all_po.html
++++ b/app/partials/list_all_po.html
+@@ -14,24 +14,33 @@
+     <div class="modal-header">
+         <h3 class="modal-title">Send</h3>
+     </div>
+-    <div class="modal-body">
++    <div class="modal-body send-inputs" style="text-align: center;">
+     	<div id="modalLoaderDiv" style="display: hidden;">
+ 		    <img src="img/ajax-loader.gif" class="modal-ajax-loader"/>
+ 		</div>
+-		<input type="checkbox" ng-model="poSend.allowDocumentDelivery"/> Allow Document Delivery<br>
+-		Delivery list:
+-		<ul>
+-			<li ng-repeat="document in poSend.documentDelivery">{{ document | document_delivery_format }}</li>
+-		</ul>
+-		<ul>
+-			<li><input type="checkbox" ng-model="poSend.sendEmail"/> Send Email</li>
+-			<li>Email:<input type="text" ng-model="poSend.emailAddress"/></li>
+-			<li><input type="checkbox" ng-model="poSend.sendFax"/> Send Fax</li>
+-			<li>Fax:<input type="text" ng-model="poSend.faxNumber"/></li>
+-			<li><input type="checkbox" ng-model="poSend.print"/> Print</li>
+-			<li>{{ poSend.promptChangeStatusMessage }}</li>
+-			<li><input type="checkbox" ng-model="poSend.changeStatus"/> Change Status</li>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.allowDocumentDelivery"/> Allow Document Delivery<br>
++		</div>
++		<div class="pad-list-title">Delivery list:</div>
++		<ul class="">
++			<li ng-repeat="document in poSend.documentDelivery" class="">{{ document | document_delivery_format }}</li>
+ 		</ul>
++		<br>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.sendEmail"/> Email: <input type="text" ng-model="poSend.emailAddress"/><br>
++		</div>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.sendFax"/> Fax: <input type="text" ng-model="poSend.faxNumber"/><br>
++		</div>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.print"/> Print<br><br>
++		<div>
++		<div class="pad-inputs">
++        	{{ poSend.promptChangeStatusMessage }}   <br> 
++        </div>
++		<input type="checkbox" ng-model="poSend.changeStatus"/> Change Status
++		
++		    
+     </div>
+     <div class="modal-footer">
+         <button class="btn btn-primary" ng-click="ok()">OK</button>
+diff --git a/app/partials/po_detail.html b/app/partials/po_detail.html
+index 8503cf9..f7528f3 100644
+--- a/app/partials/po_detail.html
++++ b/app/partials/po_detail.html
+@@ -14,22 +14,32 @@
+     <div class="modal-header">
+         <h3 class="modal-title">Send</h3>
+     </div>
+-    <div class="modal-body">
++    <div class="modal-body send-inputs" style="text-align: center;">
+     	<div id="modalLoaderDiv" style="display: hidden;">
+ 		    <img src="img/ajax-loader.gif" class="modal-ajax-loader"/>
+ 		</div>
+-		<input type="checkbox" ng-model="poSend.allowDocumentDelivery"/> Allow Document Delivery<br>
+-		Delivery list:
+-		<ul>
+-			<li ng-repeat="document in poSend.documentDelivery">{{ document | document_delivery_format }}</li>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.allowDocumentDelivery"/> Allow Document Delivery<br>
++		</div>
++		<div class="pad-list-title">Delivery list:</div>
++		<ul class="">
++			<li ng-repeat="document in poSend.documentDelivery" class="">{{ document | document_delivery_format }}</li>
+ 		</ul>
+-		<input type="checkbox" ng-model="poSend.sendEmail"/> Send Email<br>
+-		Email:<input type="text" ng-model="poSend.emailAddress"/><br>
+-		<input type="checkbox" ng-model="poSend.sendFax"/> Send Fax<br>
+-		Fax:<input type="text" ng-model="poSend.faxNumber"/><br>
+-		<input type="checkbox" ng-model="poSend.print"/> Print<br><br>
+-        {{ poSend.promptChangeStatusMessage }}   <br> 
++		<br>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.sendEmail"/> Email: <input type="text" ng-model="poSend.emailAddress"/><br>
++		</div>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.sendFax"/> Fax: <input type="text" ng-model="poSend.faxNumber"/><br>
++		</div>
++		<div class="pad-inputs">
++			<input type="checkbox" ng-model="poSend.print"/> Print<br><br>
++		<div>
++		<div class="pad-inputs">
++        	{{ poSend.promptChangeStatusMessage }}   <br> 
++        </div>
+ 		<input type="checkbox" ng-model="poSend.changeStatus"/> Change Status
++		
+ 		    
+     </div>
+     <div class="modal-footer">
+-- 
+2.1.1
